@@ -2,55 +2,58 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Calculadora IMC Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora Fitness Pro</title>
+
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+body{
+font-family:Arial;
+background:#1e3c72;
+background:linear-gradient(to right,#2a5298,#1e3c72);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
 }
 
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+.container{
+background:white;
+padding:25px;
+border-radius:12px;
+width:350px;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
 }
 
-h1 {
-    margin-bottom: 20px;
+input,select{
+width:90%;
+padding:8px;
+margin:5px 0;
 }
 
-input {
-    width: 90%;
-    padding: 8px;
-    margin: 8px 0;
+button{
+background:#2a5298;
+color:white;
+border:none;
+padding:10px;
+width:100%;
+margin-top:10px;
+cursor:pointer;
 }
 
-button {
-    background: #2c5364;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    margin-top: 10px;
-    cursor: pointer;
+.bar{
+height:20px;
+background:#ddd;
+margin-top:10px;
+border-radius:10px;
+overflow:hidden;
 }
 
-button:hover {
-    background: #203a43;
-}
-
-.result {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
+.fill{
+height:100%;
+width:0%;
+background:green;
 }
 </style>
 </head>
@@ -58,41 +61,93 @@ button:hover {
 <body>
 
 <div class="container">
-    <h1>Calculadora IMC</h1>
-    <input type="number" id="altura" placeholder="Altura en cm">
-    <input type="number" id="peso" placeholder="Peso en kg">
-    <button onclick="calcularIMC()">Calcular</button>
-    <div class="result" id="resultado"></div>
+<h2>Calculadora Fitness</h2>
+
+<input type="number" id="peso" placeholder="Peso (kg)">
+<input type="number" id="altura" placeholder="Altura (cm)">
+<input type="number" id="edad" placeholder="Edad">
+
+<select id="sexo">
+<option value="hombre">Hombre</option>
+<option value="mujer">Mujer</option>
+</select>
+
+<select id="actividad">
+<option value="1.2">Sedentario</option>
+<option value="1.375">Ejercicio Ligero</option>
+<option value="1.55">Ejercicio Moderado</option>
+<option value="1.725">Ejercicio Intenso</option>
+</select>
+
+<button onclick="calcular()">Calcular</button>
+
+<div class="bar"><div class="fill" id="fill"></div></div>
+
+<p id="imc"></p>
+<p id="pesoideal"></p>
+<p id="calorias"></p>
+<p id="recomendacion"></p>
+
 </div>
 
 <script>
-function calcularIMC() {
-    let altura = document.getElementById("altura").value / 100;
-    let peso = document.getElementById("peso").value;
-    let imc = peso / (altura * altura);
-    imc = imc.toFixed(2);
 
-    let mensaje = "";
-    let color = "";
+function calcular(){
 
-    if (imc < 18.5) {
-        mensaje = "Bajo peso";
-        color = "orange";
-    } else if (imc < 25) {
-        mensaje = "Peso normal";
-        color = "green";
-    } else if (imc < 30) {
-        mensaje = "Sobrepeso";
-        color = "red";
-    } else {
-        mensaje = "Obesidad";
-        color = "darkred";
-    }
+let peso = document.getElementById("peso").value;
+let altura = document.getElementById("altura").value/100;
+let edad = document.getElementById("edad").value;
+let sexo = document.getElementById("sexo").value;
+let act = document.getElementById("actividad").value;
 
-    let resultado = document.getElementById("resultado");
-    resultado.innerHTML = "Tu IMC es: " + imc + "<br>" + mensaje;
-    resultado.style.color = color;
+let imc = peso/(altura*altura);
+imc=imc.toFixed(2);
+
+document.getElementById("imc").innerHTML="IMC: "+imc;
+
+let pesoideal = (22*(altura*altura)).toFixed(2);
+document.getElementById("pesoideal").innerHTML="Peso ideal aprox: "+pesoideal+" kg";
+
+let tmb;
+
+if(sexo=="hombre"){
+tmb=88.36+(13.4*peso)+(4.8*(altura*100))-(5.7*edad);
+}else{
+tmb=447.6+(9.2*peso)+(3.1*(altura*100))-(4.3*edad);
 }
+
+let calorias=(tmb*act).toFixed(0);
+
+document.getElementById("calorias").innerHTML="Calorías diarias: "+calorias;
+
+let rec="";
+let fill=document.getElementById("fill");
+
+if(imc<18.5){
+rec="Debes aumentar peso";
+fill.style.background="orange";
+fill.style.width="25%";
+}
+else if(imc<25){
+rec="Peso saludable";
+fill.style.background="green";
+fill.style.width="50%";
+}
+else if(imc<30){
+rec="Sobrepeso";
+fill.style.background="red";
+fill.style.width="75%";
+}
+else{
+rec="Obesidad";
+fill.style.background="darkred";
+fill.style.width="100%";
+}
+
+document.getElementById("recomendacion").innerHTML=rec;
+
+}
+
 </script>
 
 </body>
