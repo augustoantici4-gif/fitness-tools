@@ -3,46 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora Fitness Profesional | IMC, Calorías y Salud</title>
 
-<meta name="description" content="Calculadora fitness profesional gratuita. Calcula tu IMC, calorías diarias, metabolismo basal y consumo de agua recomendado.">
+<title>FitTools Pro | Calculadoras Fitness Profesionales Gratis</title>
+
+<meta name="description" content="Calculadoras fitness profesionales gratis. Calcula tu IMC, calorías diarias, metabolismo basal y consumo de agua recomendado de forma rápida y precisa.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
 body{
-background:#f4f6f9;
-color:#333;
+font-family:'Poppins',sans-serif;
+margin:0;
+background:linear-gradient(135deg,#0f172a,#1e3a8a);
+color:white;
+overflow-x:hidden;
 }
 
 header{
-background:#1f2937;
-color:white;
-padding:20px;
 text-align:center;
+padding:40px 20px;
 }
 
 header h1{
-font-size:24px;
-}
-
-nav{
-background:#111827;
-padding:10px;
-text-align:center;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-margin:0 15px;
-font-size:14px;
+font-size:40px;
+background:linear-gradient(to right,#60a5fa,#38bdf8);
+-webkit-background-clip:text;
+color:transparent;
 }
 
 .container{
@@ -52,71 +39,71 @@ padding:20px;
 }
 
 .card{
-background:white;
-padding:20px;
-margin-bottom:20px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+padding:25px;
+margin:20px 0;
+border-radius:15px;
+box-shadow:0 8px 32px rgba(0,0,0,0.3);
+transition:0.3s;
 }
 
-.card h2{
-margin-bottom:15px;
-font-size:20px;
+.card:hover{
+transform:scale(1.02);
 }
 
-input, select{
+input,select{
 width:100%;
-padding:10px;
+padding:12px;
 margin-bottom:10px;
-border-radius:5px;
-border:1px solid #ccc;
+border:none;
+border-radius:8px;
+background:#1e293b;
+color:white;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#2563eb;
-color:white;
+background:linear-gradient(to right,#3b82f6,#06b6d4);
 border:none;
-border-radius:5px;
-cursor:pointer;
+border-radius:8px;
+color:white;
 font-weight:bold;
+cursor:pointer;
+transition:0.3s;
 }
 
 button:hover{
-background:#1d4ed8;
+transform:scale(1.05);
 }
 
 .result{
 margin-top:15px;
-background:#f3f4f6;
 padding:15px;
 border-radius:8px;
+background:rgba(255,255,255,0.1);
+}
+
+.info{
+margin-top:15px;
+font-size:14px;
+opacity:0.8;
 }
 
 .ad{
-background:#e5e7eb;
+background:rgba(255,255,255,0.05);
 padding:20px;
 text-align:center;
 margin:20px 0;
-border-radius:8px;
+border-radius:10px;
 font-size:14px;
-color:#555;
 }
 
 footer{
-background:#1f2937;
-color:white;
 text-align:center;
-padding:20px;
-margin-top:40px;
-font-size:14px;
-}
-
-@media(max-width:600px){
-header h1{
-font-size:18px;
-}
+padding:30px;
+opacity:0.7;
 }
 
 </style>
@@ -125,129 +112,104 @@ font-size:18px;
 <body>
 
 <header>
-<h1>Calculadora Fitness Profesional</h1>
-<p>Herramientas gratuitas para mejorar tu salud</p>
+<h1>FitTools Pro</h1>
+<p>Herramientas profesionales para mejorar tu salud</p>
 </header>
-
-<nav>
-<a href="#">Inicio</a>
-<a href="#">IMC</a>
-<a href="#">Calorías</a>
-<a href="#">Salud</a>
-</nav>
 
 <div class="container">
 
 <div class="ad">
-ESPACIO PARA ANUNCIO
+ANUNCIO
 </div>
 
 <div class="card">
 <h2>Calculadora de IMC</h2>
-
 <input type="number" id="peso" placeholder="Peso (kg)">
 <input type="number" id="altura" placeholder="Altura (cm)">
-
 <button onclick="calcularIMC()">Calcular IMC</button>
-
 <div class="result" id="resultadoIMC"></div>
+<div class="info">
+El IMC permite identificar si tu peso está dentro de un rango saludable según tu altura.
+</div>
 </div>
 
 <div class="card">
-<h2>Calorías Diarias (Metabolismo Basal)</h2>
-
+<h2>Calorías Diarias</h2>
 <input type="number" id="peso2" placeholder="Peso (kg)">
 <input type="number" id="altura2" placeholder="Altura (cm)">
 <input type="number" id="edad" placeholder="Edad">
-
 <select id="sexo">
 <option value="hombre">Hombre</option>
 <option value="mujer">Mujer</option>
 </select>
-
 <select id="actividad">
 <option value="1.2">Sedentario</option>
 <option value="1.375">Actividad ligera</option>
 <option value="1.55">Actividad moderada</option>
 <option value="1.725">Actividad intensa</option>
 </select>
-
-<button onclick="calcularCalorias()">Calcular Calorías</button>
-
+<button onclick="calcularCalorias()">Calcular</button>
 <div class="result" id="resultadoCalorias"></div>
+<div class="info">
+Calcula tu metabolismo basal y las calorías necesarias según tu nivel de actividad.
+</div>
+</div>
+
+<div class="card">
+<h2>Consumo Diario de Agua</h2>
+<input type="number" id="peso3" placeholder="Peso (kg)">
+<button onclick="calcularAgua()">Calcular</button>
+<div class="result" id="resultadoAgua"></div>
+<div class="info">
+Mantener una hidratación adecuada mejora el rendimiento físico y mental.
+</div>
 </div>
 
 <div class="ad">
-ESPACIO PARA ANUNCIO
+ANUNCIO
 </div>
 
 </div>
 
 <footer>
-© 2026 Calculadora Fitness Profesional | Herramienta gratuita online
+© 2026 FitTools Pro
 </footer>
 
 <script>
 
 function calcularIMC(){
-let peso = document.getElementById("peso").value;
-let altura = document.getElementById("altura").value / 100;
-
-if(peso=="" || altura==""){
-alert("Completa todos los campos");
-return;
+let peso=document.getElementById("peso").value;
+let altura=document.getElementById("altura").value/100;
+let imc=peso/(altura*altura);
+document.getElementById("resultadoIMC").innerHTML="Tu IMC es: "+imc.toFixed(2);
 }
-
-let imc = peso/(altura*altura);
-let mensaje="";
-
-if(imc<18.5){
-mensaje="Bajo peso";
-}
-else if(imc<25){
-mensaje="Peso normal";
-}
-else if(imc<30){
-mensaje="Sobrepeso";
-}
-else{
-mensaje="Obesidad";
-}
-
-document.getElementById("resultadoIMC").innerHTML=
-"<strong>IMC:</strong> "+imc.toFixed(2)+"<br>"+
-"<strong>Clasificación:</strong> "+mensaje;
-}
-
 
 function calcularCalorias(){
-
-let peso = document.getElementById("peso2").value;
-let altura = document.getElementById("altura2").value;
-let edad = document.getElementById("edad").value;
-let sexo = document.getElementById("sexo").value;
-let actividad = document.getElementById("actividad").value;
-
-if(peso=="" || altura=="" || edad==""){
-alert("Completa todos los campos");
-return;
-}
+let peso=document.getElementById("peso2").value;
+let altura=document.getElementById("altura2").value;
+let edad=document.getElementById("edad").value;
+let sexo=document.getElementById("sexo").value;
+let actividad=document.getElementById("actividad").value;
 
 let bmr;
 
 if(sexo=="hombre"){
-bmr = 10*peso + 6.25*altura - 5*edad + 5;
+bmr=10*peso+6.25*altura-5*edad+5;
 }else{
-bmr = 10*peso + 6.25*altura - 5*edad - 161;
+bmr=10*peso+6.25*altura-5*edad-161;
 }
 
-let calorias = bmr * actividad;
-let agua = peso * 0.035;
+let calorias=bmr*actividad;
 
 document.getElementById("resultadoCalorias").innerHTML=
-"<strong>Metabolismo Basal:</strong> "+Math.round(bmr)+" kcal<br>"+
-"<strong>Calorías diarias recomendadas:</strong> "+Math.round(calorias)+" kcal<br>"+
-"<strong>Agua recomendada:</strong> "+agua.toFixed(2)+" litros";
+"Calorías diarias: "+Math.round(calorias);
+}
+
+function calcularAgua(){
+let peso=document.getElementById("peso3").value;
+let agua=peso*0.035;
+document.getElementById("resultadoAgua").innerHTML=
+"Debes beber aprox: "+agua.toFixed(2)+" litros diarios";
 }
 
 </script>
