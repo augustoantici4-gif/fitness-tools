@@ -1,46 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMI Calculator</title>
-
+<title>Calculadora IMC Pro</title>
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .container {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1 {
+    margin-bottom: 20px;
 }
 
 input {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
 }
 
 button {
-  padding: 10px 20px;
-  background: #4CAF50;
-  border: none;
-  color: white;
-  cursor: pointer;
+    background: #2c5364;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
 }
 
-#result {
-  margin-top: 20px;
-  font-size: 18px;
+button:hover {
+    background: #203a43;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -48,48 +58,40 @@ button {
 <body>
 
 <div class="container">
-  <h1>BMI Calculator</h1>
-
-  <label>Height (cm)</label>
-  <input type="number" id="height" placeholder="Enter height">
-
-  <label>Weight (kg)</label>
-  <input type="number" id="weight" placeholder="Enter weight">
-
-  <button onclick="calculateBMI()">Calculate</button>
-
-  <div id="result"></div>
+    <h1>Calculadora IMC</h1>
+    <input type="number" id="altura" placeholder="Altura en cm">
+    <input type="number" id="peso" placeholder="Peso en kg">
+    <button onclick="calcularIMC()">Calcular</button>
+    <div class="result" id="resultado"></div>
 </div>
 
 <script>
-function calculateBMI() {
-  let height = document.getElementById("height").value;
-  let weight = document.getElementById("weight").value;
+function calcularIMC() {
+    let altura = document.getElementById("altura").value / 100;
+    let peso = document.getElementById("peso").value;
+    let imc = peso / (altura * altura);
+    imc = imc.toFixed(2);
 
-  if (height === "" || weight === "") {
-    document.getElementById("result").innerText = "Please enter values";
-    return;
-  }
+    let mensaje = "";
+    let color = "";
 
-  height = height / 100;
+    if (imc < 18.5) {
+        mensaje = "Bajo peso";
+        color = "orange";
+    } else if (imc < 25) {
+        mensaje = "Peso normal";
+        color = "green";
+    } else if (imc < 30) {
+        mensaje = "Sobrepeso";
+        color = "red";
+    } else {
+        mensaje = "Obesidad";
+        color = "darkred";
+    }
 
-  let bmi = weight / (height * height);
-  bmi = bmi.toFixed(2);
-
-  let category = "";
-
-  if (bmi < 18.5) {
-    category = "Underweight";
-  } else if (bmi >= 18.5 && bmi < 24.9) {
-    category = "Normal weight";
-  } else if (bmi >= 25 && bmi < 29.9) {
-    category = "Overweight";
-  } else {
-    category = "Obese";
-  }
-
-  document.getElementById("result").innerText =
-    "Your BMI is " + bmi + " (" + category + ")";
+    let resultado = document.getElementById("resultado");
+    resultado.innerHTML = "Tu IMC es: " + imc + "<br>" + mensaje;
+    resultado.style.color = color;
 }
 </script>
 
