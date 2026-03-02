@@ -3,100 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora de Salud Completa</title>
+<title>Calculadora Fitness Profesional | IMC, Calorías y Salud</title>
+
+<meta name="description" content="Calculadora fitness profesional gratuita. Calcula tu IMC, calorías diarias, metabolismo basal y consumo de agua recomendado.">
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
 body{
-font-family: Arial;
 background:#f4f6f9;
-text-align:center;
+color:#333;
+}
+
+header{
+background:#1f2937;
+color:white;
 padding:20px;
+text-align:center;
+}
+
+header h1{
+font-size:24px;
+}
+
+nav{
+background:#111827;
+padding:10px;
+text-align:center;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:0 15px;
+font-size:14px;
 }
 
 .container{
-background:white;
-padding:20px;
-max-width:400px;
+max-width:900px;
 margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+padding:20px;
 }
 
-input,select{
+.card{
+background:white;
+padding:20px;
+margin-bottom:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h2{
+margin-bottom:15px;
+font-size:20px;
+}
+
+input, select{
 width:100%;
 padding:10px;
-margin:5px;
+margin-bottom:10px;
+border-radius:5px;
+border:1px solid #ccc;
 }
 
 button{
-background:#007bff;
-color:white;
-padding:10px;
-border:none;
 width:100%;
-margin-top:10px;
+padding:12px;
+background:#2563eb;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#1d4ed8;
 }
 
 .result{
-margin-top:20px;
-background:#eee;
-padding:10px;
-border-radius:10px;
+margin-top:15px;
+background:#f3f4f6;
+padding:15px;
+border-radius:8px;
 }
+
+.ad{
+background:#e5e7eb;
+padding:20px;
+text-align:center;
+margin:20px 0;
+border-radius:8px;
+font-size:14px;
+color:#555;
+}
+
+footer{
+background:#1f2937;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
+font-size:14px;
+}
+
+@media(max-width:600px){
+header h1{
+font-size:18px;
+}
+}
+
 </style>
 </head>
 
 <body>
 
-<div>ESPACIO PARA ANUNCIO</div>
+<header>
+<h1>Calculadora Fitness Profesional</h1>
+<p>Herramientas gratuitas para mejorar tu salud</p>
+</header>
+
+<nav>
+<a href="#">Inicio</a>
+<a href="#">IMC</a>
+<a href="#">Calorías</a>
+<a href="#">Salud</a>
+</nav>
 
 <div class="container">
 
-<h2>Calculadora de Salud</h2>
+<div class="ad">
+ESPACIO PARA ANUNCIO
+</div>
 
-<input id="peso" placeholder="Peso (kg)">
-<input id="altura" placeholder="Altura (cm)">
-<input id="edad" placeholder="Edad">
+<div class="card">
+<h2>Calculadora de IMC</h2>
+
+<input type="number" id="peso" placeholder="Peso (kg)">
+<input type="number" id="altura" placeholder="Altura (cm)">
+
+<button onclick="calcularIMC()">Calcular IMC</button>
+
+<div class="result" id="resultadoIMC"></div>
+</div>
+
+<div class="card">
+<h2>Calorías Diarias (Metabolismo Basal)</h2>
+
+<input type="number" id="peso2" placeholder="Peso (kg)">
+<input type="number" id="altura2" placeholder="Altura (cm)">
+<input type="number" id="edad" placeholder="Edad">
 
 <select id="sexo">
 <option value="hombre">Hombre</option>
 <option value="mujer">Mujer</option>
 </select>
 
-<button onclick="calcular()">Calcular</button>
+<select id="actividad">
+<option value="1.2">Sedentario</option>
+<option value="1.375">Actividad ligera</option>
+<option value="1.55">Actividad moderada</option>
+<option value="1.725">Actividad intensa</option>
+</select>
 
-<div class="result" id="resultado"></div>
+<button onclick="calcularCalorias()">Calcular Calorías</button>
+
+<div class="result" id="resultadoCalorias"></div>
+</div>
+
+<div class="ad">
+ESPACIO PARA ANUNCIO
+</div>
 
 </div>
 
-<div>ESPACIO PARA ANUNCIO</div>
+<footer>
+© 2026 Calculadora Fitness Profesional | Herramienta gratuita online
+</footer>
 
 <script>
-function calcular(){
 
+function calcularIMC(){
 let peso = document.getElementById("peso").value;
-let altura = document.getElementById("altura").value/100;
-let edad = document.getElementById("edad").value;
-let sexo = document.getElementById("sexo").value;
+let altura = document.getElementById("altura").value / 100;
+
+if(peso=="" || altura==""){
+alert("Completa todos los campos");
+return;
+}
 
 let imc = peso/(altura*altura);
+let mensaje="";
+
+if(imc<18.5){
+mensaje="Bajo peso";
+}
+else if(imc<25){
+mensaje="Peso normal";
+}
+else if(imc<30){
+mensaje="Sobrepeso";
+}
+else{
+mensaje="Obesidad";
+}
+
+document.getElementById("resultadoIMC").innerHTML=
+"<strong>IMC:</strong> "+imc.toFixed(2)+"<br>"+
+"<strong>Clasificación:</strong> "+mensaje;
+}
+
+
+function calcularCalorias(){
+
+let peso = document.getElementById("peso2").value;
+let altura = document.getElementById("altura2").value;
+let edad = document.getElementById("edad").value;
+let sexo = document.getElementById("sexo").value;
+let actividad = document.getElementById("actividad").value;
+
+if(peso=="" || altura=="" || edad==""){
+alert("Completa todos los campos");
+return;
+}
 
 let bmr;
 
 if(sexo=="hombre"){
-bmr = 10*peso + 6.25*(altura*100) - 5*edad + 5;
+bmr = 10*peso + 6.25*altura - 5*edad + 5;
 }else{
-bmr = 10*peso + 6.25*(altura*100) - 5*edad -161;
+bmr = 10*peso + 6.25*altura - 5*edad - 161;
 }
 
-let calorias = bmr*1.55;
-let agua = peso*0.035;
+let calorias = bmr * actividad;
+let agua = peso * 0.035;
 
-document.getElementById("resultado").innerHTML=
-"IMC: "+imc.toFixed(2)+"<br>"+
-"Calorías diarias: "+Math.round(calorias)+" kcal<br>"+
-"Agua recomendada: "+agua.toFixed(2)+" L";
+document.getElementById("resultadoCalorias").innerHTML=
+"<strong>Metabolismo Basal:</strong> "+Math.round(bmr)+" kcal<br>"+
+"<strong>Calorías diarias recomendadas:</strong> "+Math.round(calorias)+" kcal<br>"+
+"<strong>Agua recomendada:</strong> "+agua.toFixed(2)+" litros";
 }
+
 </script>
 
 </body>
