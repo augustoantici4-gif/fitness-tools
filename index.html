@@ -3,151 +3,100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calculadora Fitness Pro</title>
+<title>Calculadora de Salud Completa</title>
 
 <style>
 body{
-font-family:Arial;
-background:#1e3c72;
-background:linear-gradient(to right,#2a5298,#1e3c72);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
+font-family: Arial;
+background:#f4f6f9;
+text-align:center;
+padding:20px;
 }
 
 .container{
 background:white;
-padding:25px;
-border-radius:12px;
-width:350px;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.4);
+padding:20px;
+max-width:400px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,0.2);
 }
 
 input,select{
-width:90%;
-padding:8px;
-margin:5px 0;
+width:100%;
+padding:10px;
+margin:5px;
 }
 
 button{
-background:#2a5298;
+background:#007bff;
 color:white;
-border:none;
 padding:10px;
+border:none;
 width:100%;
 margin-top:10px;
-cursor:pointer;
 }
 
-.bar{
-height:20px;
-background:#ddd;
-margin-top:10px;
+.result{
+margin-top:20px;
+background:#eee;
+padding:10px;
 border-radius:10px;
-overflow:hidden;
-}
-
-.fill{
-height:100%;
-width:0%;
-background:green;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<h2>Calculadora Fitness</h2>
+<div>ESPACIO PARA ANUNCIO</div>
 
-<input type="number" id="peso" placeholder="Peso (kg)">
-<input type="number" id="altura" placeholder="Altura (cm)">
-<input type="number" id="edad" placeholder="Edad">
+<div class="container">
+
+<h2>Calculadora de Salud</h2>
+
+<input id="peso" placeholder="Peso (kg)">
+<input id="altura" placeholder="Altura (cm)">
+<input id="edad" placeholder="Edad">
 
 <select id="sexo">
 <option value="hombre">Hombre</option>
 <option value="mujer">Mujer</option>
 </select>
 
-<select id="actividad">
-<option value="1.2">Sedentario</option>
-<option value="1.375">Ejercicio Ligero</option>
-<option value="1.55">Ejercicio Moderado</option>
-<option value="1.725">Ejercicio Intenso</option>
-</select>
-
 <button onclick="calcular()">Calcular</button>
 
-<div class="bar"><div class="fill" id="fill"></div></div>
-
-<p id="imc"></p>
-<p id="pesoideal"></p>
-<p id="calorias"></p>
-<p id="recomendacion"></p>
+<div class="result" id="resultado"></div>
 
 </div>
 
-<script>
+<div>ESPACIO PARA ANUNCIO</div>
 
+<script>
 function calcular(){
 
 let peso = document.getElementById("peso").value;
 let altura = document.getElementById("altura").value/100;
 let edad = document.getElementById("edad").value;
 let sexo = document.getElementById("sexo").value;
-let act = document.getElementById("actividad").value;
 
 let imc = peso/(altura*altura);
-imc=imc.toFixed(2);
 
-document.getElementById("imc").innerHTML="IMC: "+imc;
-
-let pesoideal = (22*(altura*altura)).toFixed(2);
-document.getElementById("pesoideal").innerHTML="Peso ideal aprox: "+pesoideal+" kg";
-
-let tmb;
+let bmr;
 
 if(sexo=="hombre"){
-tmb=88.36+(13.4*peso)+(4.8*(altura*100))-(5.7*edad);
+bmr = 10*peso + 6.25*(altura*100) - 5*edad + 5;
 }else{
-tmb=447.6+(9.2*peso)+(3.1*(altura*100))-(4.3*edad);
+bmr = 10*peso + 6.25*(altura*100) - 5*edad -161;
 }
 
-let calorias=(tmb*act).toFixed(0);
+let calorias = bmr*1.55;
+let agua = peso*0.035;
 
-document.getElementById("calorias").innerHTML="Calorías diarias: "+calorias;
-
-let rec="";
-let fill=document.getElementById("fill");
-
-if(imc<18.5){
-rec="Debes aumentar peso";
-fill.style.background="orange";
-fill.style.width="25%";
+document.getElementById("resultado").innerHTML=
+"IMC: "+imc.toFixed(2)+"<br>"+
+"Calorías diarias: "+Math.round(calorias)+" kcal<br>"+
+"Agua recomendada: "+agua.toFixed(2)+" L";
 }
-else if(imc<25){
-rec="Peso saludable";
-fill.style.background="green";
-fill.style.width="50%";
-}
-else if(imc<30){
-rec="Sobrepeso";
-fill.style.background="red";
-fill.style.width="75%";
-}
-else{
-rec="Obesidad";
-fill.style.background="darkred";
-fill.style.width="100%";
-}
-
-document.getElementById("recomendacion").innerHTML=rec;
-
-}
-
 </script>
 
 </body>
